@@ -1,3 +1,4 @@
+
 ##1.Merges the training and the test sets to create one data set.
 ##2.Extracts only the measurements on the mean and standard deviation for each measurement. 
 ##3.Uses descriptive activity names to name the activities in the data set
@@ -5,23 +6,23 @@
 ##5.Creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
 ##Read in the train data and test data
-trainData <- read.table("./data/UCI HAR Dataset/train/X_train.txt", sep="", header = FALSE)
-testData <- read.table("./data/UCI HAR Dataset/test/X_test.txt", sep="", header = FALSE)
+trainData <- read.table("./UCI HAR Dataset/train/X_train.txt", sep="", header = FALSE)
+testData <- read.table("./UCI HAR Dataset/test/X_test.txt", sep="", header = FALSE)
 
 ##Read in the train activity and test activity
-yTrainData <- read.table("./data/UCI HAR Dataset/train/Y_train.txt", sep="", header = FALSE)
-yTestData <- read.table("./data/UCI HAR Dataset/test/Y_test.txt", sep="", header = FALSE)
+yTrainData <- read.table("./UCI HAR Dataset/train/Y_train.txt", sep="", header = FALSE)
+yTestData <- read.table("./UCI HAR Dataset/test/Y_test.txt", sep="", header = FALSE)
 
 ##Read in the train subject and test subject
-subjectTrainData <- read.table("./data/UCI HAR Dataset/train/subject_train.txt", sep="", header = FALSE)
-subjectTestData <- read.table("./data/UCI HAR Dataset/test/subject_test.txt", sep="", header = FALSE)
+subjectTrainData <- read.table("./UCI HAR Dataset/train/subject_train.txt", sep="", header = FALSE)
+subjectTestData <- read.table("./UCI HAR Dataset/test/subject_test.txt", sep="", header = FALSE)
 
 ##Merge train data and test data
 ## 1.Merges the training and the test sets to create one data set.
 totalData <-rbind(trainData, testData)
 
 ##Read in the features
-features <- read.table("./data/UCI HAR Dataset/features.txt", sep="", header = FALSE)
+features <- read.table("./UCI HAR Dataset/features.txt", sep="", header = FALSE)
 
 ##load package
 library(sqldf)
@@ -42,7 +43,7 @@ yData <- rbind(yTrainData, yTestData)
 colnames(yData)[1] <- "activityID"
 
 ##Read in the activities
-activities <- read.table("./data/UCI HAR Dataset/activity_labels.txt", sep="", header = FALSE)
+activities <- read.table("./UCI HAR Dataset/activity_labels.txt", sep="", header = FALSE)
 colnames(activities) <- c("id", "activity")
 
 
@@ -69,4 +70,4 @@ activitySubjectMean <- merge(activities, activitySubjectMean, by.x = "id", by.y 
 
 activitySubjectMean <- subset(activitySubjectMean, select = -c(id))
 
-write.csv(activitySubjectMean, "./data/activitySubjectMean.txt", col.names = TRUE, sep=",")
+write.csv(activitySubjectMean, "./activitySubjectMean.txt", col.names = TRUE, sep=",")
